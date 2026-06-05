@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carloalberto Viani — Compositore & Produttore</title>
+
+  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       TOKENS
+    ───────────────────────────────────────── */
+    :root {
+      --ink:     #0e0d0b;
+      --paper:   #f5f2ec;
+      --warm:    #e8e2d6;
+      --accent:  #b8892a;   /* ambra/oro */
+      --subtle:  #8a8579;
+      --rule:    rgba(14,13,11,0.12);
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      --section-pad: clamp(5rem, 10vw, 9rem);
+      --gutter:      clamp(1.5rem, 5vw, 4rem);
+      --max-w:       1180px;
+    }
+
+    /* ─────────────────────────────────────────
+       RESET & BASE
+    ───────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    ::selection { background: var(--accent); color: #fff; }
+
+    a { color: inherit; text-decoration: none; }
+
+    img { display: block; max-width: 100%; }
+
+    /* ─────────────────────────────────────────
+       LAYOUT HELPERS
+    ───────────────────────────────────────── */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: var(--gutter);
+    }
+
+    .section {
+      padding-block: var(--section-pad);
+    }
+
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 2.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      max-width: 60px;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* ─────────────────────────────────────────
+       NAV
+    ───────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 1.4rem var(--gutter);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(245,242,236,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 var(--rule);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex;
+      gap: clamp(1.2rem, 3vw, 2.5rem);
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      transition: color 0.25s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: var(--ink);
+      transition: transform 0.3s, opacity 0.3s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    @media (max-width: 680px) {
+      .nav-links {
+        position: fixed;
+        top: 0; right: -100%;
+        width: min(80vw, 320px);
+        height: 100vh;
+        background: var(--paper);
+        flex-direction: column;
+        justify-content: center;
+        padding: 3rem;
+        gap: 2rem;
+        transition: right 0.4s cubic-bezier(.77,0,.18,1);
+        box-shadow: -4px 0 40px rgba(0,0,0,0.08);
+      }
+      .nav-links.open { right: 0; }
+      .nav-links a { font-size: 1rem; }
+      .nav-toggle { display: flex; }
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: grid;
+      grid-template-columns: 1fr;
+      align-items: flex-end;
+      padding-bottom: clamp(3rem, 8vw, 6rem);
+      padding-top: 7rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative large background number */
+    #hero::before {
+      content: 'CV';
+      position: absolute;
+      right: -0.05em;
+      top: 50%;
+      transform: translateY(-55%);
+      font-family: var(--font-display);
+      font-size: clamp(18rem, 30vw, 28rem);
+      font-weight: 300;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(14,13,11,0.06);
+      pointer-events: none;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .hero-inner {
+      position: relative;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(3.8rem, 9vw, 8rem);
+      font-weight: 300;
+      line-height: 0.95;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+    }
+    .hero-name em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      max-width: 520px;
+      font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+      color: var(--subtle);
+      line-height: 1.75;
+      margin-bottom: 3rem;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink);
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 0.35rem;
+      transition: color 0.25s, border-color 0.25s;
+    }
+    .hero-cta:hover { color: var(--accent); border-color: var(--accent); }
+    .hero-cta svg { transition: transform 0.25s; }
+    .hero-cta:hover svg { transform: translateX(4px); }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 2.5rem;
+      right: var(--gutter);
+      writing-mode: vertical-rl;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .hero-scroll::before {
+      content: '';
+      width: 1px;
+      height: 50px;
+      background: var(--subtle);
+      animation: scrollLine 2s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%, 100% { transform: scaleY(1); opacity: 1; }
+      50% { transform: scaleY(0.5); opacity: 0.4; }
+    }
+
+    /* ─────────────────────────────────────────
+       CHI SONO
+    ───────────────────────────────────────── */
+    #about {
+      background: var(--ink);
+      color: var(--paper);
+      --rule: rgba(245,242,236,0.12);
+    }
+
+    #about .section-label { color: var(--accent); }
+    #about .section-label::after { background: var(--accent); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 6vw, 6rem);
+      align-items: start;
+    }
+
+    @media (max-width: 760px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.8rem;
+    }
+    .about-headline em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .about-text {
+      color: rgba(245,242,236,0.7);
+      font-size: 0.97rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .about-facts {
+      border-top: 1px solid var(--rule);
+      padding-top: 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem 2rem;
+    }
+
+    .fact-item {}
+    .fact-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.3rem;
+    }
+    .fact-value {
+      font-size: 0.9rem;
+      color: var(--paper);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 2rem;
+    }
+    .skill-tag {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid rgba(245,242,236,0.2);
+      padding: 0.35rem 0.9rem;
+      color: rgba(245,242,236,0.7);
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ─────────────────────────────────────────
+       ESPERIENZE (timeline)
+    ───────────────────────────────────────── */
+    #experience {
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .timeline {
+      position: relative;
+      padding-left: 2.5rem;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.5rem;
+      bottom: 0;
+      width: 1px;
+      background: var(--rule);
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 3rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .timeline-item.visible { opacity: 1; transform: none; }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -2.5rem;
+      top: 0.55rem;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+      transform: translateX(-3px);
+    }
+
+    .tl-year {
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+    .tl-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+    .tl-desc {
+      font-size: 0.9rem;
+      color: var(--subtle);
+      line-height: 1.65;
+    }
+
+    /* ─────────────────────────────────────────
+       DEMO REEL
+    ───────────────────────────────────────── */
+    #reel {
+      padding-bottom: 0;
+    }
+
+    .reel-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: end;
+      margin-bottom: clamp(2.5rem, 5vw, 4rem);
+    }
+    @media (max-width: 680px) {
+      .reel-intro { grid-template-columns: 1fr; }
+    }
+
+    .reel-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 300;
+      line-height: 1.05;
+    }
+    .reel-headline em { font-style: italic; color: var(--accent); }
+
+    .reel-sub {
+      font-size: 0.92rem;
+      color: var(--subtle);
+      line-height: 1.75;
+    }
+
+    .reel-embed {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--ink);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── SOSTITUISCI l'intero blocco .reel-placeholder con il tuo <iframe> ── */
+    .reel-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: var(--paper);
+      cursor: pointer;
+      background: linear-gradient(135deg, #0e0d0b 60%, #1c1a15);
+    }
+    .reel-play {
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .reel-placeholder:hover .reel-play {
+      border-color: var(--accent);
+      transform: scale(1.08);
+    }
+    .reel-placeholder span {
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      opacity: 0.5;
+    }
+
+    /* ─────────────────────────────────────────
+       VIBRAZIONI (Spotify)
+    ───────────────────────────────────────── */
+    #vibes {
+      background: var(--ink);
+      color: var(--paper);
+    }
+    #vibes .section-label { color: var(--accent); }
+    #vibes .section-label::after { background: var(--accent); }
+
+    .vibes-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2.5rem, 6vw, 6rem);
+      align-items: center;
+    }
+    @media (max-width: 760px) {
+      .vibes-layout { grid-template-columns: 1fr; }
+    }
+
+    .vibes-text {}
+    .vibes-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+    .vibes-headline em { font-style: italic; color: var(--accent); }
+    .vibes-desc {
+      color: rgba(245,242,236,0.6);
+      font-size: 0.92rem;
+      line-height: 1.8;
+    }
+
+    .spotify-wrapper {
+      border-radius: 0;
+      overflow: hidden;
+      /* ── SOSTITUISCI l'intero elemento con il tuo iframe Spotify ─────────
+         Esempio:
+         <iframe style="border-radius:0"
+           src="https://open.spotify.com/embed/playlist/IL_TUO_PLAYLIST_ID?utm_source=generator&theme=0"
+           width="100%" height="380" frameBorder="0"
+           allowfullscreen=""
+           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+           loading="lazy">
+         </iframe>
+      ─────────────────────────────────────────────────────────────────── -->
+    }
+
+    .spotify-placeholder {
+      width: 100%;
+      height: 380px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      color: rgba(245,242,236,0.4);
+    }
+    .spotify-placeholder svg { opacity: 0.4; }
+    .spotify-placeholder p {
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ─────────────────────────────────────────
+       CONTATTI
+    ───────────────────────────────────────── */
+    #contact {
+      border-top: 1px solid var(--rule);
+    }
+
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    @media (max-width: 680px) {
+      .contact-layout { grid-template-columns: 1fr; }
+    }
+
+    .contact-headline {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      font-weight: 300;
+      line-height: 1.05;
+      margin-bottom: 1rem;
+    }
+    .contact-headline em { font-style: italic; color: var(--accent); }
+
+    .contact-sub {
+      font-size: 0.92rem;
+      color: var(--subtle);
+      max-width: 380px;
+      line-height: 1.75;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      padding-top: 0.5rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding-bottom: 1.4rem;
+      border-bottom: 1px solid var(--rule);
+      transition: color 0.25s;
+    }
+    .contact-link:last-child { border-bottom: none; }
+    .contact-link:hover { color: var(--accent); }
+
+    .cl-icon {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .contact-link:hover .cl-icon {
+      border-color: var(--accent);
+      background: rgba(184,137,42,0.06);
+    }
+
+    .cl-info {}
+    .cl-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--subtle);
+      margin-bottom: 0.2rem;
+    }
+    .cl-value {
+      font-size: 0.92rem;
+    }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    footer {
+      padding: 2rem var(--gutter);
+      border-top: 1px solid var(--rule);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-name {
+      font-family: var(--font-display);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+    .footer-copy {
+      font-size: 0.72rem;
+      color: var(--subtle);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─────────────────────────────────────────
+       REVEAL ANIMATION HELPERS
+    ───────────────────────────────────────── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- ════════════════════════════════════════
+       NAV
+  ════════════════════════════════════════ -->
+  <nav id="nav">
+    <a href="#hero" class="nav-logo">C<span>.</span>Viani</a>
+    <button class="nav-toggle" id="navToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about">Chi sono</a></li>
+      <li><a href="#experience">Esperienze</a></li>
+      <li><a href="#reel">Demo Reel</a></li>
+      <li><a href="#vibes">Vibrazioni</a></li>
+      <li><a href="#contact">Contatti</a></li>
+    </ul>
+  </nav>
+
+
+  <!-- ════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section id="hero" class="section">
+    <div class="container hero-inner">
+      <p class="hero-eyebrow">Compositore · Produttore · Sound Designer</p>
+      <h1 class="hero-name">
+        Carloalberto<br /><em>Viani</em>
+      </h1>
+      <p class="hero-desc">
+        Un linguaggio sonoro all'incrocio tra il classico e il moderno.
+        Colonne sonore, orchestrazione e produzione elettronica per film,
+        cortometraggi e contenuti audiovisivi.
+      </p>
+      <a href="#contact" class="hero-cta">
+        Parliamoci
+        <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+          <path d="M11 1L17 7L11 13M1 7H17" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+    </div>
+    <div class="hero-scroll">Scorri</div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       CHI SONO
+  ════════════════════════════════════════ -->
+  <section id="about" class="section">
+    <div class="container">
+      <p class="section-label">Chi sono</p>
+      <div class="about-grid">
+
+        <div>
+          <h2 class="about-headline">
+            Musica nata<br/>dall'<em>ibridazione</em>
+          </h2>
+          <p class="about-text">
+            Compositore, produttore, tastierista e appassionato di sintetizzatori,
+            laureato in Composizione Pop-Rock al CPM Music Institute di Milano.
+            La mia tesi — <em>"Linguaggio Ibrido"</em> — esplora la fusione tra
+            l'elettronica e gli strumenti orchestrali tradizionali: una direzione
+            che attraversa ogni mio lavoro.
+          </p>
+          <p class="about-text">
+            Dal 2021 compongo e produco musica per artisti indipendenti, sfilate
+            di moda e premi letterari. Nel 2024 ho vinto il MEDIMEX International
+            Festival & Music Conference nella sezione colonne sonore.
+          </p>
+
+          <div class="skills-list">
+            <span class="skill-tag">Orchestrazione</span>
+            <span class="skill-tag">Film Scoring</span>
+            <span class="skill-tag">Sound Design</span>
+            <span class="skill-tag">Mixing & Mastering</span>
+            <span class="skill-tag">Foley</span>
+            <span class="skill-tag">Sintesi Modulare</span>
+            <span class="skill-tag">Post-produzione Audio</span>
+            <span class="skill-tag">DAW</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="about-facts">
+            <div class="fact-item">
+              <p class="fact-label">Nato a</p>
+              <p class="fact-value">Mantova, 2001</p>
+            </div>
+            <div class="fact-item">
+              <p class="fact-label">Basato a</p>
+              <p class="fact-value">Milano, Italia</p>
+            </div>
+            <div class="fact-item">
+              <p class="fact-label">Formazione</p>
+              <p class="fact-value">CPM Music Institute — AFAM II livello</p>
+            </div>
+            <div class="fact-item">
+              <p class="fact-label">Background tecnico</p>
+              <p class="fact-value">ITIS Fermi — Diploma in Elettronica</p>
+            </div>
+            <div class="fact-item">
+              <p class="fact-label">Lingue</p>
+              <p class="fact-value">Italiano (madrelingua) · Inglese B1</p>
+            </div>
+            <div class="fact-item">
+              <p class="fact-label">Premio</p>
+              <p class="fact-value">MEDIMEX 2024 — Colonne Sonore</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       ESPERIENZE
+  ════════════════════════════════════════ -->
+  <section id="experience" class="section">
+    <div class="container">
+      <p class="section-label">Esperienze</p>
+      <div class="timeline">
+
+        <div class="timeline-item">
+          <p class="tl-year">2024</p>
+          <h3 class="tl-title">MEDIMEX International Festival & Music Conference</h3>
+          <p class="tl-desc">Vincitore nella sezione colonne sonore del prestigioso festival internazionale dedicato alla musica e all'industria discografica.</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="tl-year">2023 · 2024</p>
+          <h3 class="tl-title">Sonorizzazione Sfilate NABA</h3>
+          <p class="tl-desc">Composizione e progettazione sonora per le sfilate dell'Accademia di Belle Arti di Nuova Accademia di Brera — due edizioni consecutive.</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="tl-year">2023 · 2025</p>
+          <h3 class="tl-title">Premio Campiello Giovani — Finali</h3>
+          <p class="tl-desc">Sonorizzazione delle cerimonie finali del Premio Campiello Giovani, uno dei riconoscimenti letterari più importanti del panorama italiano.</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="tl-year">2021 – oggi</p>
+          <h3 class="tl-title">Composizione & Produzione Musicale</h3>
+          <p class="tl-desc">Collaborazioni continuative con artisti indipendenti per composizione, produzione, mixing e mastering di contenuti musicali e audiovisivi.</p>
+        </div>
+
+        <div class="timeline-item">
+          <p class="tl-year">2021 – 2025</p>
+          <h3 class="tl-title">CPM Music Institute — Milano</h3>
+          <p class="tl-desc">Diploma accademico di secondo livello AFAM in Composizione Pop-Rock. Tesi: "Linguaggio Ibrido — Unione dell'elettronica con gli strumenti orchestrali tradizionali".</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       DEMO REEL
+  ════════════════════════════════════════ -->
+  <section id="reel" class="section">
+    <div class="container">
+      <p class="section-label">Demo Reel</p>
+      <div class="reel-intro">
+        <h2 class="reel-headline">
+          Il suono<br/>in <em>movimento</em>
+        </h2>
+        <p class="reel-sub">
+          Una selezione dei miei lavori più significativi in formato video:
+          colonne sonore, sound design e produzioni audiovisive.
+        </p>
+      </div>
+
+      <div class="reel-embed">
+        <!--
+          ══ SOSTITUISCI il blocco .reel-placeholder qui sotto con il tuo iframe ══
+          Esempio YouTube:
+          <iframe
+            width="100%" height="100%"
+            src="https://www.youtube.com/embed/IL_TUO_VIDEO_ID"
+            title="Demo Reel — Carloalberto Viani"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen>
+          </iframe>
+          ════════════════════════════════════════════════════════════════════════
+        -->
+        <div class="reel-placeholder">
+          <div class="reel-play">
+            <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
+              <path d="M1 1.5L21 13L1 24.5V1.5Z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span>Inserisci il tuo Demo Reel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       VIBRAZIONI — SPOTIFY
+  ════════════════════════════════════════ -->
+  <section id="vibes" class="section">
+    <div class="container">
+      <p class="section-label">Vibrazioni</p>
+      <div class="vibes-layout">
+
+        <div class="vibes-text">
+          <h2 class="vibes-headline">
+            La musica<br/>che mi<br/><em>ispira</em>
+          </h2>
+          <p class="vibes-desc">
+            Una playlist curata che racconta il mio universo sonoro di riferimento:
+            le influenze, le atmosfere e le sonorità che alimentano la mia ricerca artistica.
+          </p>
+        </div>
+
+        <div class="spotify-wrapper">
+          <!--
+            ══ SOSTITUISCI il blocco .spotify-placeholder con il tuo iframe ══
+            Vai su Spotify → la tua playlist → condividi → copia il link embed.
+            Poi incolla qui qualcosa del tipo:
+
+            <iframe style="border-radius:0"
+              src="https://open.spotify.com/embed/playlist/IL_TUO_PLAYLIST_ID?utm_source=generator&theme=0"
+              width="100%" height="380"
+              frameBorder="0"
+              allowfullscreen=""
+              allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+              loading="lazy">
+            </iframe>
+            ════════════════════════════════════════════════════════════════
+          -->
+          <div class="spotify-placeholder">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+            <p>Inserisci la tua playlist Spotify</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       CONTATTI
+  ════════════════════════════════════════ -->
+  <section id="contact" class="section">
+    <div class="container">
+      <p class="section-label">Contatti</p>
+      <div class="contact-layout">
+
+        <div>
+          <h2 class="contact-headline">
+            Lavoriamo<br/><em>insieme</em>
+          </h2>
+          <p class="contact-sub">
+            Hai un progetto che richiede musica originale, sound design o una colonna sonora?
+            Scrivimi — rispondo entro 24 ore.
+          </p>
+        </div>
+
+        <div class="contact-links">
+
+          <!-- EMAIL -->
+          <a href="mailto:carloalbertoviani001@gmail.com" class="contact-link">
+            <div class="cl-icon">
+              <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+                <rect x="1" y="1" width="16" height="12" rx="1.5" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M1 3L9 8.5L17 3" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cl-info">
+              <p class="cl-label">Email</p>
+              <p class="cl-value">carloalbertoviani001@gmail.com</p>
+            </div>
+          </a>
+
+          <!-- TELEFONO -->
+          <a href="tel:+393490678320" class="contact-link">
+            <div class="cl-icon">
+              <svg width="16" height="18" viewBox="0 0 16 18" fill="none">
+                <path d="M3 1H6L7.5 5L5.5 6.5C6.5 8.5 7.5 9.5 9.5 10.5L11 8.5L15 10V13C15 14.1 14.1 15 13 15C6.4 15 1 9.6 1 3C1 1.9 1.9 1 3 1Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <div class="cl-info">
+              <p class="cl-label">Telefono</p>
+              <p class="cl-value">+39 349 067 8320</p>
+            </div>
+          </a>
+
+          <!-- LINKEDIN ── SOSTITUISCI '#' con il tuo profilo LinkedIn -->
+          <a href="https://linkedin.com/in/TUOUSERNAME" target="_blank" rel="noopener" class="contact-link">
+            <div class="cl-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <rect x="1" y="1" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.2"/>
+                <path d="M5 7V13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+                <path d="M5 4.5V5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9 13V10C9 8.9 9.9 8 11 8C12.1 8 13 8.9 13 10V13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 7V13" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+              </svg>
+            </div>
+            <div class="cl-info">
+              <p class="cl-label">LinkedIn</p>
+              <!-- SOSTITUISCI con il tuo username LinkedIn -->
+              <p class="cl-value">linkedin.com/in/tuousername</p>
+            </div>
+          </a>
+
+          <!-- GITHUB ── SOSTITUISCI '#' con il tuo profilo GitHub -->
+          <a href="https://github.com/TUOUSERNAME" target="_blank" rel="noopener" class="contact-link">
+            <div class="cl-icon">
+              <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+                <path d="M9 1C4.58 1 1 4.65 1 9.17c0 3.61 2.29 6.67 5.47 7.75.4.07.55-.18.55-.39v-1.37c-2.23.5-2.7-1.1-2.7-1.1-.37-.96-.9-1.22-.9-1.22-.73-.51.06-.5.06-.5.81.06 1.24.85 1.24.85.72 1.26 1.89.9 2.35.69.07-.53.28-.9.51-1.1-1.78-.21-3.65-.91-3.65-4.05 0-.9.31-1.63.82-2.2-.08-.21-.36-1.04.08-2.17 0 0 .67-.22 2.2.83A7.5 7.5 0 019 5.67c.68 0 1.36.09 2 .27 1.53-1.05 2.2-.83 2.2-.83.44 1.13.16 1.96.08 2.17.51.57.82 1.3.82 2.2 0 3.15-1.87 3.84-3.65 4.04.29.25.54.75.54 1.51v2.24c0 .21.15.46.55.38C15.72 15.83 18 12.77 18 9.17 18 4.65 14.42 1 9 1z" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="cl-info">
+              <p class="cl-label">GitHub</p>
+              <!-- SOSTITUISCI con il tuo username GitHub -->
+              <p class="cl-value">github.com/tuousername</p>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ════════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer>
+    <p class="footer-name">Carloalberto Viani</p>
+    <p class="footer-copy">© <span id="year"></span> — Tutti i diritti riservati</p>
+  </footer>
+
+
+  <!-- ════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════ -->
+  <script>
+    // Anno dinamico nel footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ── NAV: scrolled class + hamburger ─────────────────────────
+    const navEl    = document.getElementById('nav');
+    const toggle   = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    window.addEventListener('scroll', () => {
+      navEl.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ── INTERSECTION OBSERVER: reveal on scroll ──────────────────
+    const observerOptions = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, observerOptions);
+
+    // Target tutti gli elementi animabili
+    document.querySelectorAll(
+      '.timeline-item, .reveal'
+    ).forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 80}ms`;
+      io.observe(el);
+    });
+  </script>
+
+</body>
+</html>
